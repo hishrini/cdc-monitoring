@@ -67,6 +67,20 @@ Make it executable:
 ```bash
 chmod +x start-postgres-exporter.sh
 ```
+=======
+Alternatively if you have PostgreSQL is running as container you may need to follow below steps to run the postgres_exporter
+postgres_exporter Image: This exporter will expose PostgreSQL metrics.​
+
+Step1: pull quay.io/prometheuscommunity/postgres-exporter
+Step2: run the postgres-exporter on your podman while setting environment variable:
+       DATA_SOURCE_NAME="postgresql://postgres:yourpassword@localhost:5432/postgres?sslmode=disable"
+       Ensure the DATA_SOURCE_NAME matches your PostgreSQL credentials.
+
+Step3: Verify the pod is running and Open a browser or use curl to access:​
+       http://localhost:9187/metrics
+
+Note:  You may face issues while pods running independently of connection refused you can change the by replacing localhost with ip address of your local machine/server in the DATA_SOURCE_NAME environment variable
+
 
 ## 4. Configure Prometheus to Scrape Metrics
 
