@@ -5,6 +5,13 @@ Monitoring Kafka, Kafka Connect &amp; Postgresql Connector using Prometheus graf
 
 Monitoring solution for the Kafka ecosystem using Prometheus and Grafana on your local environment with Grafana hosted on Podman.
 
+## Assumption/Prerequisites to run the monitoring setup 
+The Monitoring setup assumes you have:
+1. Red Hat Streams for Apache Kafka setup on local machine or RHEL server
+2. Red hat Kafka Connect on local machine or RHEL server
+3. PostgreSQL runs locally or on Podman Desktop(I am currently running this on Podman) 
+4. Debezium PostgreSQL Connector Configuration to run the PostgreSQL Debezium Connector on Kafka Connect
+
 ## Overview of the Monitoring Setup
 
 1. Set up JMX exporters for Kafka and Kafka Connect to expose metrics to Prometheus
