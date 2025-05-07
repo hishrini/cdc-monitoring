@@ -1,5 +1,5 @@
-# Monitoring
-Monitoring Kafka, Kafka Connect &amp; Postgresql Connector using Prometheus grafana
+# CDC End-to-End Monitoring
+End to End Monitoring of CDC components which includes Kafka, Kafka Connect &amp; Postgresql Connector using Prometheus grafana
 
 # Monitoring Kafka, Kafka Connect, and PostgreSQL Debezium with Prometheus and Grafana
 
