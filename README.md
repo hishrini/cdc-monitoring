@@ -7,8 +7,8 @@ Monitoring solution for the Kafka ecosystem using Prometheus and Grafana on your
 
 ## Assumption/Prerequisites to run the monitoring setup 
 The Monitoring setup assumes you have:
-1. Red Hat Streams for Apache Kafka setup on local machine or RHEL server
-2. Red hat Kafka Connect on local machine or RHEL server
+1. Red Hat Streams for Apache Kafka(or community Kafka) setup on local machine or RHEL server
+2. Red Hat Kafka Connect on local machine or RHEL server
 3. PostgreSQL runs locally or on Podman Desktop(I am currently running this on Podman) 
 4. Debezium PostgreSQL Connector Configuration to run the PostgreSQL Debezium Connector on Kafka Connect
 
@@ -28,7 +28,7 @@ First, you'll need the JMX exporter to expose Kafka metrics to Prometheus:
 
 ### For Kafka Brokers:
 
-Download the JMX exporter JAR file and create a configuration file:
+Step1 : Download the JMX exporter JAR file and create a configuration file:
 
 ```bash
 mkdir -p ~/kafka-monitoring
@@ -36,15 +36,28 @@ cd ~/kafka-monitoring
 wget https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.17.2/jmx_prometheus_javaagent-0.17.2.jar
 ```
 
-Create a Kafka JMX exporter config file:
+======= Alternate using podman desktop =======  
+
+Alternatively you can pull the prometheus image and host the same on Podman Desktop as well..
+
+======= XXXXXXXXXXX =======  
+
+Step2 : Create a Kafka JMX exporter config file:
+Refer file : kafka-monitoring/kafka-jmx-config.yml
+
 
 ### For Kafka Connect:
 
 Create a Kafka Connect JMX exporter config file:
+Refer file : kafka-monitoring/kafka-connect-jmx-config.yml
 
 ## 2. Modify Kafka and Kafka Connect Startup Scripts
 
 Update your Kafka and Kafka Connect startup scripts to include the JMX exporter:
+
+======= Refer Script Files here =======  
+Kafka Metrics Script File Location :   kafka-monitoring/start-kafka-with-metrics.sh
+Kafka Connect Metrics Script File Location:  kafka-monitoring/start-kafka-connect-with-metrics.sh
 
 Make the scripts executable:
 
@@ -115,6 +128,9 @@ cp ~/kafka-monitoring/prometheus.yml .
 
 Create a script to start Prometheus:
 
+======= Refer Script Files here =======  
+Prometheus Script File Location :   kafka-monitoring/start-prometheus.sh
+
 Make it executable:
 
 ```bash
@@ -145,6 +161,9 @@ podman run -d --name grafana -p 3000:3000 grafana/grafana
 
 For the Debezium PostgreSQL connector, ensure you have metrics enabled in your connector configuration:
 
+======= Refer Postgres Debezium Connector Config File here =======  
+Postgres Debezium Connector Config File Location :   kafka-monitoring/postgres-connector-config.json
+
 Use the Kafka Connect REST API to create the connector:
 
 ```bash
@@ -172,11 +191,18 @@ To import the dashboards into Grafana:
 
 Here's a complete script to start all the monitoring components:
 
+======= Refer Script Files here =======  
+Monitoring Script File Location :   kafka-monitoring/start-monitoring.sh
+
 Make it executable:
 
 ```bash
 chmod +x start-monitoring.sh
 ```
+
+_**Please noe** you may see minor issues while running the script which tries to run all the scripts file together in sequence, 
+in whcih case you may want to run the individual script files in the sequence mentioned in the file and that should work..
+_
 
 ## Summary of Setup
 
@@ -193,13 +219,14 @@ Here's a summary of what we've set up:
 - Kafka Connect JMX Exporter: Port 9998
 - PostgreSQL Exporter: Port 9187
 - Prometheus: Port 9090
-- Grafana: Port 3000 (in Podman)
+- Grafana: Port 3000 (on Podman)
 
-### Dashboards Created:
+### For Grafana Dashboards Import below dashboard files and make changes as required :
 
-1. **Kafka Metrics Dashboard**: For monitoring Kafka broker metrics
-2. **Kafka Connect and Debezium Metrics**: For monitoring Kafka Connect and Debezium PostgreSQL connector
-3. **PostgreSQL Metrics**: For monitoring PostgreSQL database metrics
+1. **Kafka Metrics Dashboard**: For monitoring Kafka broker metrics  -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/kafka-dashboard.json
+2. **Kafka Connect and Debezium Metrics**: For monitoring Kafka Connect and Debezium PostgreSQL connector -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/kafka-connect-dashboard.json
+3. **PostgreSQL Metrics**: For monitoring PostgreSQL database metrics -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/postgres-dashboard.json
+
 
 ## Additional Considerations
 
