@@ -197,7 +197,7 @@ Monitoring Script File Location :   kafka-monitoring/start-monitoring.sh
 Make it executable:
 
 ```bash
-chmod +x start-monitoring.sh
+chmod +x start-monitoring.shx
 ```
 
 _**Please noe** you may see minor issues while running the script which tries to run all the scripts file together in sequence, 
