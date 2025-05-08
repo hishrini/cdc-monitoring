@@ -244,3 +244,5 @@ Here's a summary of what we've set up:
 6. **Network Configuration**: If running Grafana in Podman, make sure your Prometheus server is accessible from the Grafana container. You might need to use your host's IP instead of `localhost` when configuring the Prometheus data source in Grafana.
 
 To get started, simply run the `start-monitoring.sh` script, configure the Prometheus data source in Grafana, and import the dashboards. This will give you a comprehensive monitoring solution for your Kafka, Kafka Connect, and PostgreSQL with Debezium environment.
+
+Please note you may need to customize the Grafana dashboards based on your requirement.
