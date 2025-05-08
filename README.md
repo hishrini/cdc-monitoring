@@ -201,8 +201,7 @@ chmod +x start-monitoring.shx
 ```
 
 _**Please noe** you may see minor issues while running the script which tries to run all the scripts file together in sequence, 
-in whcih case you may want to run the individual script files in the sequence mentioned in the file and that should work..
-_
+in whcih case you may want to run the individual script files in the sequence mentioned in the file and that should work.._
 
 ## Summary of Setup
 
@@ -226,9 +225,10 @@ Here's a summary of what we've set up:
 1. **Kafka Metrics Dashboard**: For monitoring Kafka broker metrics  -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/kafka-dashboard.json
 2. **Kafka Connect and Debezium Metrics**: For monitoring Kafka Connect and Debezium PostgreSQL connector -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/kafka-connect-dashboard.json
 3. **PostgreSQL Metrics**: For monitoring PostgreSQL database metrics -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/postgres-dashboard.json
+4. **CDC E2E Metrics**: For monitoring end-to-end Kafka, Kafka Connect and Debezium PostgreSQL connector, PostgresSQ:  -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/cdc-sample-dashboard.json
 
 
-## Additional Considerations
+## Additional Considerations which are not covered in this article :
 
 1. **Security**: This setup doesn't include authentication for Prometheus or the exporters. In a production environment, consider adding authentication and TLS.
 
@@ -241,7 +241,5 @@ Here's a summary of what we've set up:
 5. **Fine-tuning**: Adjust the JMX exporter configurations to include/exclude metrics based on your specific needs.
 
 6. **Network Configuration**: If running Grafana in Podman, make sure your Prometheus server is accessible from the Grafana container. You might need to use your host's IP instead of `localhost` when configuring the Prometheus data source in Grafana.
-
-7. **Persistence**: For production, configure persistent volumes for Prometheus and Grafana to preserve data across restarts.
 
 To get started, simply run the `start-monitoring.sh` script, configure the Prometheus data source in Grafana, and import the dashboards. This will give you a comprehensive monitoring solution for your Kafka, Kafka Connect, and PostgreSQL with Debezium environment.
