@@ -11,7 +11,7 @@ The Monitoring setup assumes you have:
 2. Red Hat Kafka Connect on local machine or RHEL server
 3. PostgreSQL runs locally or on Podman Desktop(I am currently running this on Podman) 
 4. Debezium PostgreSQL Connector Configuration to run the PostgreSQL Debezium Connector on Kafka Connect
-5. The repository does not include Prometheus , Grafana, PostgreSQL exporter artifacts yiou need to follow the instructions to download/install as mentioned in the steps in this article 
+5. The repository does not include Prometheus , Grafana, PostgreSQL exporter artifacts you need to follow the steps/instructions in this article to download/install these components 
 
 ## Overview of the Monitoring Setup
 
