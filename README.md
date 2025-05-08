@@ -32,8 +32,8 @@ First, you'll need the JMX exporter to expose Kafka metrics to Prometheus:
 Step1 : Download the JMX exporter JAR file and create a configuration file:
 
 ```bash
-mkdir -p ~/kafka-monitoring
-cd ~/kafka-monitoring
+mkdir -p ~/cdc-monitoring
+cd ~/cdc-monitoring
 wget https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.17.2/jmx_prometheus_javaagent-0.17.2.jar
 ```
 
@@ -44,21 +44,21 @@ Alternatively you can pull the prometheus image and host the same on Podman Desk
 ======= XXXXXXXXXXX =======  
 
 Step2 : Create a Kafka JMX exporter config file:
-Refer file : kafka-monitoring/kafka-jmx-config.yml
+Refer file : cdc-monitoring/kafka-jmx-config.yml
 
 
 ### For Kafka Connect:
 
 Create a Kafka Connect JMX exporter config file:
-Refer file : kafka-monitoring/kafka-connect-jmx-config.yml
+Refer file : cdc-monitoring/kafka-connect-jmx-config.yml
 
 ## 2. Modify Kafka and Kafka Connect Startup Scripts
 
 Update your Kafka and Kafka Connect startup scripts to include the JMX exporter:
 
 ======= Refer Script Files here =======  
-Kafka Metrics Script File Location :   kafka-monitoring/start-kafka-with-metrics.sh
-Kafka Connect Metrics Script File Location:  kafka-monitoring/start-kafka-connect-with-metrics.sh
+Kafka Metrics Script File Location :   cdc-monitoring/start-kafka-with-metrics.sh
+Kafka Connect Metrics Script File Location:  cdc-monitoring/start-kafka-connect-with-metrics.sh
 
 Make the scripts executable:
 
@@ -73,7 +73,7 @@ For PostgreSQL monitoring, you'll need a PostgreSQL exporter:
 
 ```bash
 # Download and extract PostgreSQL exporter
-cd ~/kafka-monitoring
+cd ~/cdc-monitoring
 wget https://github.com/prometheus-community/postgres_exporter/releases/download/v0.11.1/postgres_exporter-0.11.1.linux-amd64.tar.gz
 tar xvfz postgres_exporter-*.tar.gz
 cd postgres_exporter-*
@@ -120,17 +120,17 @@ Create a Prometheus configuration file:
 Set up and start Prometheus locally:
 
 ```bash
-cd ~/kafka-monitoring
+cd ~/cdc-monitoring
 wget https://github.com/prometheus/prometheus/releases/download/v2.37.0/prometheus-2.37.0.linux-amd64.tar.gz
 tar xvfz prometheus-*.tar.gz
 cd prometheus-*
-cp ~/kafka-monitoring/prometheus.yml .
+cp ~/cdc-monitoring/prometheus.yml .
 ```
 
 Create a script to start Prometheus:
 
 ======= Refer Script Files here =======  
-Prometheus Script File Location :   kafka-monitoring/start-prometheus.sh
+Prometheus Script File Location :   cdc-monitoring/start-prometheus.sh
 
 Make it executable:
 
@@ -163,7 +163,7 @@ podman run -d --name grafana -p 3000:3000 grafana/grafana
 For the Debezium PostgreSQL connector, ensure you have metrics enabled in your connector configuration:
 
 ======= Refer Postgres Debezium Connector Config File here =======  
-Postgres Debezium Connector Config File Location :   kafka-monitoring/postgres-connector-config.json
+Postgres Debezium Connector Config File Location :   cdc-monitoring/postgres-connector-config.json
 
 Use the Kafka Connect REST API to create the connector:
 
@@ -193,7 +193,7 @@ To import the dashboards into Grafana:
 Here's a complete script to start all the monitoring components:
 
 ======= Refer Script Files here =======  
-Monitoring Script File Location :   kafka-monitoring/start-monitoring.sh
+Monitoring Script File Location :   cdc-monitoring/start-monitoring.sh
 
 Make it executable:
 
@@ -223,10 +223,10 @@ Here's a summary of what we've set up:
 
 ### For Grafana Dashboards Import below dashboard files and make changes as required :
 
-1. **Kafka Metrics Dashboard**: For monitoring Kafka broker metrics  -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/kafka-dashboard.json
-2. **Kafka Connect and Debezium Metrics**: For monitoring Kafka Connect and Debezium PostgreSQL connector -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/kafka-connect-dashboard.json
-3. **PostgreSQL Metrics**: For monitoring PostgreSQL database metrics -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/postgres-dashboard.json
-4. **CDC E2E Metrics**: For monitoring end-to-end Kafka, Kafka Connect and Debezium PostgreSQL connector, PostgresSQ:  -> **Refer file location**: kafka-monitoring/grafana-dashboard-config/cdc-sample-dashboard.json
+1. **Kafka Metrics Dashboard**: For monitoring Kafka broker metrics  -> **Refer file location**: cdc-monitoring/grafana-dashboard-config/kafka-dashboard.json
+2. **Kafka Connect and Debezium Metrics**: For monitoring Kafka Connect and Debezium PostgreSQL connector -> **Refer file location**: cdc-monitoring/grafana-dashboard-config/kafka-connect-dashboard.json
+3. **PostgreSQL Metrics**: For monitoring PostgreSQL database metrics -> **Refer file location**: cdc-monitoring/grafana-dashboard-config/postgres-dashboard.json
+4. **CDC E2E Metrics**: For monitoring end-to-end Kafka, Kafka Connect and Debezium PostgreSQL connector, PostgresSQ:  -> **Refer file location**: cdc-monitoring/grafana-dashboard-config/cdc-sample-dashboard.json
 
 
 ## Additional Considerations which are not covered in this article :
